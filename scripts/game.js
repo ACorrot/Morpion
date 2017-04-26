@@ -1,5 +1,6 @@
 turn = 0;
-v = 0;
+victory = null;
+
 var table = [
     [
         {
@@ -44,243 +45,242 @@ var table = [
         },
     ],
 ];
-for (data = 0; data < table.length; data++) {
-    for(object = 0; object < table[data].length; object++) {;
-    }
-}
 
-    function selectId(currentObject) {
-        
-        
-        if(turn == 0) {
-       
-        // Tour du joueur
-        console.log(turn);
-        var tdId = currentObject.id;
-        for (data = 0; data < table.length; data++) {
-            for(object = 0; object < table[data].length; object++) {;
-                if(table[data][object].data == tdId) {
-                    switch(table[data][object].content) {
-                        case  "":
-                        document.getElementById(tdId).innerHTML= "<i class='fa fa-circle-o' aria-hidden='true'></i>";
-                         localStorage.setItem('Joueur 1', tdId );
+  function selectId(currentObject) {
+
+      // Turn 0 = Joueur 1
+      // Turn 1 = Joueur 2
+      var currentId = currentObject.id;
+
+      for (data = 0; data < table.length; data++) {
+          for(object = 0; object < table[data].length; object++) {;
+              if(table[data][object].data == currentId) {
+                  switch(table[data][object].content) {
+                      case  "":
+                      if(turn == 0) {
+                        console.log('TOUR : Joueur 1');
+                        document.getElementById(currentId).innerHTML= "<i class='fa fa-circle-o' aria-hidden='true'></i>";
+                         localStorage.setItem('Joueur 1', currentId );
                          table[data][object].content = "Joueur 1";
-                         var result = checkVictory(table[data][object].data);
-                            if(result == true) {
-                                 document.getElementById('tourJoueur').innerHTML= "Victoire du <span style='color: red'>joueur 1 !!</span>";
-                                 document.getElementById('bouton').innerHTML= "<button>Nouvelle partie</button>"
-                                var el = document.querySelectorAll('tbody tr td');
-                                        for(var i = 0; i < el.length; i++) {
-                                            el[i].setAttribute( "onClick", "");
-                                        }                            
-                            }
-                         turn = 1;
-                            break;
-                        case "Joueur 1":
-                           alert('Cette case est déjà prise!');
-                            break;
-                        case "Joueur 2":
-                           alert('Cette case est déjà prise!');
-                            break;
-                        default:
-                    }
-                }
-            }
-        }
-    } else {
-            // Tour de l'ennemi
-            console.log(turn);
-            var tdId = currentObject.id;
-            for (data = 0; data < table.length; data++) {
-                for(object = 0; object < table[data].length; object++) {;
-                    if(table[data][object].data == tdId) {
-                        switch(table[data][object].content) {
-                            case  "":
-                            document.getElementById(tdId).innerHTML= "<i class='fa fa-times' aria-hidden='true'></i>";
-                            table[data][object].content = "Joueur 2";
-                            var result = checkVictory(table[data][object].data);
-                            if(result == true) {
-                                var el = document.querySelectorAll('tbody tr td');
-                                        for(var i = 0; i < el.length; i++) {
-                                            el[i].setAttribute( "onClick", "");
-                                        } 
-                                 document.getElementById('tourJoueur').innerHTML= "Victoire du <span style='color: blue'>joueur 2 !!</span>"
-                                 document.getElementById('bouton').innerHTML= "<button>Nouvelle partie</button>"
-                            }
-                            
-                            turn = 0;
-                                break;
-                            case "Joueur 1":
-                        alert('Cette case est déjà prise!');
-                                break;
-                            case "Joueur 2":
-                        alert('Cette case est déjà prise!');
-                                break;
-                            default:
-                        }
-                        for (data = 0; data < table.length; data++) {
-                    if(table[data][object].content == "") {
-                        console.log("here");
-                    }
-       }
-                    }
-                }
-            }
-        }
-        console.log(tdId);
-    }
+                         var result = checkVictory(table[data][object].data, table);
+                         if(result == 1) {
+                            console.log('victoire Joueur 1')
+                         } else if(result == 2) {
+                           console.log('match nul');
+                         }
+                            turn = 1;
 
-    
-    function checkVictory(id) {
-        var type = "";
-        if(table[data][object].content == "Joueur 1") {
-            type = "Joueur 1";
-        } else {
-            type = "Joueur 2"
-        }
+                      } else if(turn == 1) {
+                        console.log('TOUR : Joueur 2');
+                        document.getElementById(currentId).innerHTML= "<i class='fa fa-times' aria-hidden='true'></i>";
+                         localStorage.setItem('Joueur 2', currentId );
+                         table[data][object].content = "Joueur 2";
+                         var result = checkVictory(table[data][object].data, table);
+                         if(result == 1) {
+                            console.log('victoire Joueur 2')
+                         } else if(result == 2) {
+                           console.log('match nul');
+                         }
+                          turn = 0;
+                      }
+
+                          break;
+                      case "Joueur 1":
+                         alert('Cette case est déjà prise!');
+                          break;
+                      case "Joueur 2":
+                         alert('Cette case est déjà prise!');
+                          break;
+                      default:
+                  }
+              }
+          }
+      }
+  }
+
+
+    function checkVictory(id, table) {
+        player = null;
+        if(turn == 0) {
+            player = "Joueur 1";
+        };
+        if(turn == 1) {
+            player = "Joueur 2"
+        };
         console.log('Start check');
+        var count = 0;
+        for (data = 0; data < table.length; data++) {
+            for(object = 0; object < table[data].length; object++) {
+              if(count >= 8){
+                return 2;
+              }
+              if(table[data][object].content == "") {
+                // Do nothing
+              } else {
+                console.log(count);
+                count ++;
+              }
+            }
+        }
         switch (id) {
             case 1:
-            if(table[0][1].content == type){
-                if(table[0][2].content == type){
-                    return true;
-                } 
-            }
-            if(table[1][0].content == type){
-                if(table[2][0].content == type){
-                    return true;
+            if(table[0][1].content == player){
+                if(table[0][2].content == player){
+                    return 1;
                 }
             }
-            if(table[1][1].content == type){
-                if(table[2][2].content == type){
-                    return true;
+            if(table[1][0].content == player){
+                if(table[2][0].content == player){
+                    return 1;
                 }
             }
+            if(table[1][1].content == player){
+                if(table[2][2].content == player){
+                    return 1;
+                }
+            }
+            return 0
                 break;
             case 2:
             // Teste si la premiere ligne contient une victoire
-            if(table[0][0].content == type) {
-                 if(table[0][2].content == type) {
-                    return true;
+            if(table[0][0].content == player) {
+                 if(table[0][2].content == player) {
+                    return 1;
                 }
             }
-            if(table[1][1].content == type) {
-                 if(table[2][1].content == type) {
-                    return true;
+            if(table[1][1].content == player) {
+                 if(table[2][1].content == player) {
+                    return 1;
                 }
             }
+            return 0
+
                 break;
             case 3:
-            if(table[0][1].content == type) {
-                 if(table[0][0].content == type) {
-                    return true;
+            if(table[0][1].content == player) {
+                 if(table[0][0].content == player) {
+                    return 1;
                 }
             }
-            if(table[1][2].content == type) {
-                 if(table[2][2].content == type) {
-                    return true;
+            if(table[1][2].content == player) {
+                 if(table[2][2].content == player) {
+                    return 1;
                 }
             }
-            if(table[1][1].content == type) {
-                 if(table[2][0].content == type) {
-                    return true;
+            if(table[1][1].content == player) {
+                 if(table[2][0].content == player) {
+                    return 1;
                 }
             }
+            return 0
+
                 break;
             case 4:
-            if(table[0][0].content == type) {
-                 if(table[2][0].content == type) {
-                    return true;
+            if(table[0][0].content == player) {
+                 if(table[2][0].content == player) {
+                    return 1;
                 }
             }
-            if(table[1][1].content == type) {
-                 if(table[1][2].content == type) {
-                    return true;
+            if(table[1][1].content == player) {
+                 if(table[1][2].content == player) {
+                    return 1;
                 }
             }
+            return 0
+
                 break;
             case 5:
-            if(table[0][1].content == type) {
-                 if(table[2][1].content == type) {
-                    return true;
+            if(table[0][1].content == player) {
+                 if(table[2][1].content == player) {
+                    return 1;
                 }
             }
-            if(table[1][0].content == type) {
-                 if(table[1][2].content == type) {
-                    return true;
+            if(table[1][0].content == player) {
+                 if(table[1][2].content == player) {
+                    return 1;
                 }
             }
-            if(table[0][0].content == type) {
-                 if(table[2][2].content == type) {
-                    return true;
+            if(table[0][0].content == player) {
+                 if(table[2][2].content == player) {
+                    return 1;
                 }
             }
-            if(table[0][2].content == type) {
-                 if(table[2][0].content == type) {
-                    return true;
+            if(table[0][2].content == player) {
+                 if(table[2][0].content == player) {
+                    return 1;
                 }
             }
+            return 0
+
                 break;
             case 6:
-            if(table[0][2].content == type) {
-                 if(table[2][2].content == type) {
-                    return true;
+            if(table[0][2].content == player) {
+                 if(table[2][2].content == player) {
+                    return 1;
                 }
             }
-            if(table[1][0].content == type) {
-                 if(table[1][1].content == type) {
-                    return true;
+            if(table[1][0].content == player) {
+                 if(table[1][1].content == player) {
+                    return 1;
                 }
             }
+            return 0
+
                 break;
             case 7:
-            if(table[0][0].content == type) {
-                 if(table[1][0].content == type) {
-                    return true;
+            if(table[0][0].content == player) {
+                 if(table[1][0].content == player) {
+                    return 1;
                 }
             }
-            if(table[2][1].content == type) {
-                 if(table[2][2].content == type) {
-                    return true;
+            if(table[2][1].content == player) {
+                 if(table[2][2].content == player) {
+                    return 1;
                 }
             }
-            if(table[1][1].content == type) {
-                 if(table[0][2].content == type) {
-                    return true;
+            if(table[1][1].content == player) {
+                 if(table[0][2].content == player) {
+                    return 1;
                 }
             }
+            return 0
+
                 break;
             case 8:
-            if(table[0][1].content == type) {
-                 if(table[1][1].content == type) {
-                    return true;
+            if(table[0][1].content == player) {
+                 if(table[1][1].content == player) {
+                    return 1;
                 }
             }
-            if(table[2][0].content == type) {
-                 if(table[2][2].content == type) {
-                    return true;
+            if(table[2][0].content == player) {
+                 if(table[2][2].content == player) {
+                    return 1;
                 }
             }
+            return 0
+
                 break;
             case 9:
-            if(table[0][0].content == type) {
-                 if(table[1][1].content == type) {
-                    return true;
+            if(table[0][0].content == player) {
+                 if(table[1][1].content == player) {
+                    return 1;
                 }
             }
-            if(table[2][0].content == type) {
-                 if(table[2][1].content == type) {
-                    return true;
+            if(table[2][0].content == player) {
+                 if(table[2][1].content == player) {
+                    return 1;
                 }
             }
-            if(table[0][2].content == type) {
-                 if(table[1][2].content == type) {
-                    return true;
+            if(table[0][2].content == player) {
+                 if(table[1][2].content == player) {
+                    return 1;
                 }
             }
+            return 0
+
                 break;
             default:
         }
         console.log('End check');
-        
+
     }
