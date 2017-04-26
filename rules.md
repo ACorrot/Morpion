@@ -10,3 +10,4 @@
 
 - Un tableau de 9 cases, ou qui y ressemble.
 - Des cercles de deux couleurs différentes. (Ou croix et cercle, mais pas important)(Peut-être utiliser fontawesome).
+
