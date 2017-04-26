@@ -1,5 +1,5 @@
 turn = 0;
-v = 0;
+victory = null;
 var table = [
     [
         {
@@ -44,94 +44,62 @@ var table = [
         },
     ],
 ];
-for (data = 0; data < table.length; data++) {
-    for(object = 0; object < table[data].length; object++) {;
-    }
-}
-
     function selectId(currentObject) {
         
-        
         if(turn == 0) {
-       
-        // Tour du joueur
-        console.log(turn);
-        var tdId = currentObject.id;
-        for (data = 0; data < table.length; data++) {
-            for(object = 0; object < table[data].length; object++) {;
-                if(table[data][object].data == tdId) {
-                    switch(table[data][object].content) {
-                        case  "":
-                        document.getElementById(tdId).innerHTML= "<i class='fa fa-circle-o' aria-hidden='true'></i>";
-                         localStorage.setItem('Joueur 1', tdId );
-                         table[data][object].content = "Joueur 1";
-                         var result = checkVictory(table[data][object].data);
-                            if(result == true) {
-                                 document.getElementById('tourJoueur').innerHTML= "Victoire du <span style='color: red'>joueur 1 !!</span>";
-                                 document.getElementById('bouton').innerHTML= "<button>Nouvelle partie</button>"
-                                var el = document.querySelectorAll('tbody tr td');
-                                        for(var i = 0; i < el.length; i++) {
-                                            el[i].setAttribute( "onClick", "");
-                                        }                            
-                            }
-                         turn = 1;
-                            break;
-                        case "Joueur 1":
-                           alert('Cette case est déjà prise!');
-                            break;
-                        case "Joueur 2":
-                           alert('Cette case est déjà prise!');
-                            break;
-                        default:
-                    }
-                }
-            }
-        }
-    } else {
-            // Tour de l'ennemi
-            console.log(turn);
             var tdId = currentObject.id;
             for (data = 0; data < table.length; data++) {
                 for(object = 0; object < table[data].length; object++) {;
                     if(table[data][object].data == tdId) {
-                        switch(table[data][object].content) {
-                            case  "":
-                            document.getElementById(tdId).innerHTML= "<i class='fa fa-times' aria-hidden='true'></i>";
-                            table[data][object].content = "Joueur 2";
-                            var result = checkVictory(table[data][object].data);
-                            if(result == true) {
-                                var el = document.querySelectorAll('tbody tr td');
-                                        for(var i = 0; i < el.length; i++) {
-                                            el[i].setAttribute( "onClick", "");
-                                        } 
-                                 document.getElementById('tourJoueur').innerHTML= "Victoire du <span style='color: blue'>joueur 2 !!</span>"
-                                 document.getElementById('bouton').innerHTML= "<button>Nouvelle partie</button>"
-                            }
-                            
-                            turn = 0;
-                                break;
-                            case "Joueur 1":
-                        alert('Cette case est déjà prise!');
-                                break;
-                            case "Joueur 2":
-                        alert('Cette case est déjà prise!');
-                                break;
-                            default:
-                        }
-                        for (data = 0; data < table.length; data++) {
-                    if(table[data][object].content == "") {
-                        console.log("here");
+                    switch(table[data][object].content) {
+                    case "":
+                    document.getElementById(tdId).innerHTML= "<i class='fa fa-circle-o' aria-hidden='true'></i>";
+                    table[data][object].content = "Joueur 1";
+                    alert('pion 1 posé');
+                    var result = checkVictory(table[data][object].data,  table);
+                    turn = 1;
                     }
-       }
+                    break;
+                    } //End if
+            }
+        }
+        }
+        
+        if(turn == 1) {
+            var tdId = currentObject.id;
+            for (data = 0; data < table.length; data++) {
+                for(object = 0; object < table[data].length; object++) {;
+                    if(table[data][object].data == tdId) {
+                    switch(table[data][object].content) {
+                    case "":
+                    document.getElementById(tdId).innerHTML= "<i class='fa fa-times' aria-hidden='true'></i>";
+                    table[data][object].content = "Joueur 2";
+                    alert('pion 2 posé');
+                    var result = checkVictory(table[data][object].data,  table);
+                    turn = 0;
                     }
                 }
             }
+            }
         }
-        console.log(tdId);
+        
+        
+      
     }
 
     
-    function checkVictory(id) {
+    function checkVictory(id, table) {
+        for (data = 0; data < table.length; data++) {
+                for(object = 0; object < table[data].length; object++) {
+                    console.log( table[data][object].content);
+                    var matchNul = 'true';
+                    return matchNul;
+                    if(table[data][object].content == "") {
+                        matchNul = 'false';
+                        return matchNul;
+                    }
+                }
+        }
         var type = "";
         if(table[data][object].content == "Joueur 1") {
             type = "Joueur 1";
@@ -143,7 +111,7 @@ for (data = 0; data < table.length; data++) {
             case 1:
             if(table[0][1].content == type){
                 if(table[0][2].content == type){
-                    return true;
+                    result = 1;
                 } 
             }
             if(table[1][0].content == type){
@@ -281,6 +249,6 @@ for (data = 0; data < table.length; data++) {
                 break;
             default:
         }
-        console.log('End check');
-        
-    }
+        //console.log('End check');
+}
+
