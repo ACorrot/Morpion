@@ -1,5 +1,5 @@
 table {
-    border: solid darkblue 10px;
+    border: solid rgba(100, 100, 100, 0.75)  10px;
     width: 400px;
     height: 400px;
     border-radius: 25px;
@@ -33,11 +33,12 @@ table {
 }
 
 body {
-    background-color: lightgrey;
+    background-image: url("/img/cosmic.jpg");
+    color: white;
 }
 
 td {
-    border: solid darkred 10px;
+    border: solid rgba(0, 0, 0, 0.75) 10px;
     height: 100px;
     width: 100px;
     border-radius:  5px;
@@ -82,4 +83,8 @@ button:hover{
     background-color: lightslategray;
     color: lightgoldenrodyellow;
     border: solid lightgoldenrodyellow 5px;
+}
+
+#playerTurn {
+    font-size: 2em;
 }

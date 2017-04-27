@@ -45,7 +45,6 @@ var table = [
     ],
 ];
     function selectId(currentObject) {
-        
         //Turn 0 est le joueur 1
         //Turn 1 est le joueur 2
 
@@ -56,6 +55,7 @@ var table = [
                         if(table[data][object].data == tdId) {
                         switch(table[data][object].content) {
                             case "":
+                                document.getElementById('playerTurn').innerHTML= "Au <span style='color:blue; font-weight:bold'>joueur 2</span> de jouer !";
                                 document.getElementById(tdId).innerHTML= "<i class='fa fa-circle-o' aria-hidden='true'></i>";
                                 localStorage.setItem('Joueur 1', tdId );
                                 table[data][object].content = "Joueur 1";
@@ -68,7 +68,7 @@ var table = [
                                         document.getElementById('tourJoueur').innerHTML= "Victoire du du <span style='color: red'>joueur 1 !!</span>"
                                         document.getElementById('bouton').innerHTML= "<button>Nouvelle partie</button>"
                                 } else if(result == 2) {
-                                       document.getElementById('tourJoueur').innerHTML= "<span style='color:darkgreen'>Ceci se termine donc par un match nul !!</span>"
+                                        document.getElementById('tourJoueur').innerHTML= "<span style='color:darkgreen'>Ceci se termine donc par un match nul !!</span>"
                                         document.getElementById('bouton').innerHTML= "<button>Nouvelle partie !</button>"
                                 }
                                 turn = 1;
@@ -91,6 +91,7 @@ var table = [
                         if(table[data][object].data == tdId) {
                         switch(table[data][object].content) {
                             case "":
+                                document.getElementById('playerTurn').innerHTML= "Au <span style='color:red; font-weight:bold'>joueur 1</span> de jouer !";
                                 document.getElementById(tdId).innerHTML= "<i class='fa fa-times' aria-hidden='true'></i>";
                                 localStorage.setItem('Joueur 2', tdId );
                                 table[data][object].content = "Joueur 2";
