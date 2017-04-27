@@ -11,3 +11,6 @@
 - Un tableau de 9 cases, ou qui y ressemble.
 - Des cercles de deux couleurs différentes. (Ou croix et cercle, mais pas important)(Peut-être utiliser fontawesome).
 
+# Bug connu à ce jour:
+
+- Si on gagne en mettant le dernier jeton, on fini sur un match nul.
