@@ -63,13 +63,16 @@ var table = [
                     for(object = 0; object < table[data].length; object++) {;
                         if(table[data][object].data == tdId) {
                         switch(table[data][object].content) {
+                            //Si la case cochée est vide:
                             case "":
+                            //Ajoute La tête de Yoda, et vérifie si on a une combinaison gagnante pour le joueur 1
                                 document.getElementById('playerTurn').innerHTML= "Au tour de <span style='color:red; font-weight:bold'>Vador</span> de jouer !";
                                 document.getElementById(tdId).innerHTML= "<img class='yoda' src='/img/yoda.png'></i>";
                                 document.getElementById('pion').innerHTML = "Le <span style='color:green'>joueur 1</span> a joué en case " + tdId + " !";
                                 table[data][object].content = "Joueur 1";
                                 var result = checkVictory(table[data][object].data,  table);
                                 if (result == 1){
+                                //Si le joueur 1 gagne, on empêche le fait de cliquer et remplir les autres cases, on enregistre en localStorage le score du joueur 1  + 1point et on propose une nouvelle partie
                                         var el = document.querySelectorAll('tbody tr td');
                                         for(var i = 0; i < el.length; i++) {
                                             el[i].setAttribute( "onClick", "");
@@ -77,7 +80,8 @@ var table = [
                                         document.getElementById('tourJoueur').innerHTML= "Victoire de <span style='color: green'>Yoda !!</span>"
                                         document.getElementById('bouton').innerHTML= "<button>Nouvelle partie</button>"
                                         var oldValue1 = localStorage.getItem('winPlayer1');
-                                         var oldValue1 = localStorage.getItem('winPlayer1');
+                                        var oldValue1 = localStorage.getItem('winPlayer1');
+                                        //Numérise le score du joueur1 qui au préalable était un string
                                         oldValue1 = Number(oldValue1)
                                         oldValue1++;
                                         localStorage.setItem('winPlayer1', oldValue1);
@@ -88,6 +92,7 @@ var table = [
                                 }
                                 turn = 1;
                             break;
+                            //Si la case est déjà prise, on a une alert qui nous le dit et le tour reste au joueur actuel
                             case "Joueur 1":
                                 alert('Cette case est déjà prise!');
                                 break;
@@ -100,6 +105,7 @@ var table = [
                 }
             }
         } else if(turn == 1) {
+            //CF if turn == 0, exactement la même partie
                 var tdId = currentObject.id;
                 for (data = 0; data < table.length; data++) {
                     for(object = 0; object < table[data].length; object++) {;
@@ -147,7 +153,7 @@ var table = [
       
     }
 
-    
+    //On check la victoire, si elle existe ou non
      function checkVictory(id, table) {
         player = null;
         if(turn == 0) {
@@ -157,7 +163,7 @@ var table = [
             player = "Joueur 2"
         };
         console.log('Start check');
-        
+        //Test de toutes les combinaisons gagnantes en fonction de la DERNIERE case cliquée
         switch (id) {
             case 1:
             if(table[0][1].content == player){
@@ -317,6 +323,7 @@ var table = [
                 break;
             default:
         }
+        //Un compteur qui ... compte le nombre de tour qui passe, et qui au bout de 9 tours, affiche un draw si un win n'a pas été annoncé.
         var count = 0;
         for (data = 0; data < table.length; data++) {
             for(object = 0; object < table[data].length; object++) {
