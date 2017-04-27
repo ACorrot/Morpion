@@ -1,3 +1,8 @@
+* {
+    text-shadow: 2px 2px 1px black;
+    font-variant: small-caps;
+}
+
 table {
     border: solid rgba(100, 100, 100, 0.75)  10px;
     width: 400px;
@@ -5,7 +10,7 @@ table {
     border-radius: 25px;
     text-align: center;
     margin-left: 40%;
-    margin-top: 10%;
+    margin-top: 1%;
 }
 
 @media screen and (max-width: 920px){
@@ -68,23 +73,56 @@ td:hover{
 }
 
 button {
-    padding: 20px;
+    padding: 10px;
     border-radius: 20px;
     font-size: 1.5em;
     margin-left: 45%;
     background-color: lightgoldenrodyellow;
-    border: solid darkblue 5px;
+    border: solid darkblue 3px;
     transition: background-color 1s;
     transition: color 1.5s;
     transition: border 0.4s;
+    font-variant: small-caps;
 }
 
 button:hover{
     background-color: lightslategray;
     color: lightgoldenrodyellow;
-    border: solid lightgoldenrodyellow 5px;
+    border: solid lightgoldenrodyellow 3px;
+}
+
+@media screen and (max-width: 560px){
+    button {
+        margin-left: 25%;
+    }
 }
 
 #playerTurn {
+    font-size: 1.7em;
+}
+
+.yoda {
+    height: 50px;
+    width: 80px;
+}
+
+.vador {
+    height: 50px;
+    width: 60px;
+}
+
+#test{
     font-size: 2em;
+    text-decoration:underline;
+    animation: Test 1s infinite;
+}
+@keyframes Test{
+    0%{opacity: 1;}
+    50%{opacity: 0;}
+    100%{opacity: 1;}
+}
+
+#pion {
+    background-color: black;
+    width: 250px;
 }
